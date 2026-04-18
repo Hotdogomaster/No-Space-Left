@@ -35,8 +35,6 @@ position = Vector2(576, 650)
 planet = SubResource("Resource_nwcqo")
 inner_crust = NodePath("Inner_Crust")
 outer_crust = NodePath("Outer_Crust")
-rotation_speed = 1.5
-lerp_speed = 5.0
 
 [node name="Outer_Crust" type="Polygon2D" parent="Virtual Planet"]
 color = Color(0.201984, 0.37996, 0.16816, 1)
