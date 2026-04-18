@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://cis2447a0wjoe"]
+
+[ext_resource type="Script" path="res://Scripts/Objects/Structures/item_pipe.gd" id="1_0bafl"]
+[ext_resource type="Script" path="res://Scripts/Resources/Modules/Modules.gd" id="2_i66nj"]
+[ext_resource type="Script" path="res://Scripts/Resources/Modules/Container.gd" id="3_d1ren"]
+
+[sub_resource type="Resource" id="Resource_2adlg"]
+script = ExtResource("3_d1ren")
+max_contents = 10
+accepts_inputs = true
+
+[node name="Pipe" type="Node2D"]
+script = ExtResource("1_0bafl")
+Sname = "Item Pipe"
+item_transfer_rate = 5
+max_outputs = 2
+modules = Array[ExtResource("2_i66nj")]([SubResource("Resource_2adlg")])
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+color = Color(0.705528, 0.442654, 0.0185852, 1)
+polygon = PackedVector2Array(-42.5, 0, 42.5, 0, 42.5, -30, -42.5, -30)

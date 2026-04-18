@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="Item" load_steps=2 format=3 uid="uid://dxsil1h3nvnh1"]
+
+[ext_resource type="Script" path="res://Scripts/Resources/Item.gd" id="1_trhrd"]
+
+[resource]
+script = ExtResource("1_trhrd")
+Id = 1
+name = "Coal"

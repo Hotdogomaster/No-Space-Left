@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Recipe" load_steps=4 format=3 uid="uid://sryyokn4qa8d"]
+
+[ext_resource type="Resource" uid="uid://m2r3s1a7w7l5" path="res://Scenes/Items/Iron_Ore.tres" id="1_epvwf"]
+[ext_resource type="Resource" uid="uid://bdtcalouayyi1" path="res://Scenes/Items/Iron_Ingot.tres" id="3_rakh8"]
+[ext_resource type="Script" path="res://Scripts/Resources/Recipe.gd" id="4_2x6uj"]
+
+[resource]
+script = ExtResource("4_2x6uj")
+inputs = {
+ExtResource("1_epvwf"): 1
+}
+outputs = {
+ExtResource("3_rakh8"): 1
+}
+craft_time = 2

@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Recipe" load_steps=5 format=3 uid="uid://c6rdbh1y4skcc"]
+
+[ext_resource type="Script" path="res://Scripts/Resources/Recipe.gd" id="1_7p5uc"]
+[ext_resource type="Resource" uid="uid://m2r3s1a7w7l5" path="res://Scenes/Items/Iron_Ore.tres" id="1_pxig4"]
+[ext_resource type="Resource" uid="uid://dxsil1h3nvnh1" path="res://Scenes/Items/Coal.tres" id="2_lno10"]
+[ext_resource type="Resource" uid="uid://bdtcalouayyi1" path="res://Scenes/Items/Iron_Ingot.tres" id="3_lrecv"]
+
+[resource]
+script = ExtResource("1_7p5uc")
+inputs = {
+ExtResource("1_pxig4"): 1,
+ExtResource("2_lno10"): 1
+}
+outputs = {
+ExtResource("3_lrecv"): 1
+}
+craft_time = 2

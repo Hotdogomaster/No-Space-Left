@@ -1,0 +1,23 @@
+[gd_scene load_steps=7 format=3 uid="uid://kvhpftki2imw"]
+
+[ext_resource type="Script" path="res://Scripts/Objects/Structures/Furnace.gd" id="1_04r8f"]
+[ext_resource type="Script" path="res://Scripts/Resources/Recipe.gd" id="2_vhalq"]
+[ext_resource type="Resource" uid="uid://sryyokn4qa8d" path="res://Scenes/Recipes/Iron_bar_furnace_test.tres" id="3_vybu0"]
+[ext_resource type="Script" path="res://Scripts/Resources/Modules/Modules.gd" id="4_0hqb6"]
+[ext_resource type="Script" path="res://Scripts/Resources/Modules/Container.gd" id="5_a3dgg"]
+
+[sub_resource type="Resource" id="Resource_fq7tp"]
+script = ExtResource("5_a3dgg")
+max_contents = 10
+accepts_inputs = true
+
+[node name="Furnace" type="Node2D"]
+script = ExtResource("1_04r8f")
+recipes = Array[ExtResource("2_vhalq")]([ExtResource("3_vybu0")])
+Sname = "Basic Furnace"
+item_transfer_rate = 2
+modules = Array[ExtResource("4_0hqb6")]([SubResource("Resource_fq7tp")])
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+color = Color(0.241156, 0.241156, 0.241156, 1)
+polygon = PackedVector2Array(-42.5, 0, 42.5, 0, 42.5, -80, -42.5, -80)

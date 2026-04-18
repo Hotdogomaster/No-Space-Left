@@ -1,0 +1,125 @@
+[gd_scene load_steps=11 format=3 uid="uid://d1omdn8hxl801"]
+
+[ext_resource type="Script" path="res://Scripts/Objects/main.gd" id="1_7fvoc"]
+[ext_resource type="PackedScene" uid="uid://dpshybpy7v265" path="res://Scenes/Planets/virtual_planet.tscn" id="1_nkwgi"]
+[ext_resource type="Script" path="res://Scripts/Resources/Planet.gd" id="2_r0c7n"]
+[ext_resource type="Script" path="res://Scripts/Objects/Camera.gd" id="4_mqgaq"]
+[ext_resource type="Script" path="res://Scripts/GUI/Proprieties_Panel.gd" id="5_vu5jp"]
+[ext_resource type="Script" path="res://Scenes/Main/Mode_Label_Script.gd" id="6_irovj"]
+[ext_resource type="Script" path="res://Scenes/Main/construction_selected_label.gd" id="7_vke22"]
+
+[sub_resource type="Resource" id="Resource_nwcqo"]
+script = ExtResource("2_r0c7n")
+starchart_position = Vector2(0, 0)
+planet_size = 35
+
+[sub_resource type="LabelSettings" id="LabelSettings_0okpa"]
+font_size = 12
+
+[sub_resource type="LabelSettings" id="LabelSettings_g18vh"]
+font_size = 12
+
+[node name="Main" type="Node" node_paths=PackedStringArray("planet")]
+script = ExtResource("1_7fvoc")
+planet = NodePath("Virtual Planet")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -747.0
+offset_top = -450.0
+offset_right = 1728.0
+offset_bottom = 1294.0
+color = Color(0.00392157, 0, 0.0784314, 1)
+
+[node name="Virtual Planet" parent="." node_paths=PackedStringArray("inner_crust", "outer_crust") instance=ExtResource("1_nkwgi")]
+position = Vector2(576, 650)
+planet = SubResource("Resource_nwcqo")
+inner_crust = NodePath("Inner_Crust")
+outer_crust = NodePath("Outer_Crust")
+rotation_speed = 1.5
+lerp_speed = 5.0
+
+[node name="Outer_Crust" type="Polygon2D" parent="Virtual Planet"]
+color = Color(0.201984, 0.37996, 0.16816, 1)
+antialiased = true
+
+[node name="Inner_Crust" type="Polygon2D" parent="Virtual Planet"]
+color = Color(0.395113, 0.706311, 0.335977, 1)
+antialiased = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(576, 150)
+zoom = Vector2(3, 3)
+script = ExtResource("4_mqgaq")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Proprieties" type="Panel" parent="CanvasLayer/Control" node_paths=PackedStringArray("name_label", "inventory_label", "offset_label", "offset_button")]
+layout_mode = 0
+offset_right = 199.0
+offset_bottom = 242.0
+script = ExtResource("5_vu5jp")
+name_label = NodePath("Name")
+inventory_label = NodePath("Invetory")
+offset_label = NodePath("OutputOffset")
+offset_button = NodePath("Button")
+
+[node name="Name" type="Label" parent="CanvasLayer/Control/Proprieties"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="Invetory" type="Label" parent="CanvasLayer/Control/Proprieties"]
+layout_mode = 0
+offset_top = 30.0
+offset_right = 170.0
+offset_bottom = 150.0
+text = "
+"
+label_settings = SubResource("LabelSettings_0okpa")
+
+[node name="OutputOffset" type="Label" parent="CanvasLayer/Control/Proprieties"]
+layout_mode = 0
+offset_top = 155.0
+offset_right = 150.0
+offset_bottom = 178.0
+label_settings = SubResource("LabelSettings_g18vh")
+
+[node name="Button" type="Button" parent="CanvasLayer/Control/Proprieties"]
+visible = false
+layout_mode = 0
+offset_left = 43.0
+offset_top = 200.0
+offset_right = 153.0
+offset_bottom = 231.0
+disabled = true
+text = "select output"
+
+[node name="Mode_Label" type="Label" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_left = 417.0
+offset_right = 740.0
+offset_bottom = 23.0
+text = "maconha com batata"
+horizontal_alignment = 1
+script = ExtResource("6_irovj")
+
+[node name="Construction_Selected" type="Label" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_left = 928.0
+offset_right = 1150.0
+offset_bottom = 23.0
+script = ExtResource("7_vke22")
+
+[connection signal="construction_selected" from="." to="CanvasLayer/Control/Construction_Selected" method="_on_main_construction_selected"]
+[connection signal="get_config" from="." to="." method="_on_get_config"]
+[connection signal="get_config" from="." to="CanvasLayer/Control/Proprieties" method="_on_main_get_config"]
+[connection signal="mode_changed" from="." to="CanvasLayer/Control/Mode_Label" method="_on_main_mode_changed"]
+[connection signal="mouse_entered" from="CanvasLayer/Control/Proprieties/Button" to="." method="_on_button_mouse_entered"]
+[connection signal="mouse_exited" from="CanvasLayer/Control/Proprieties/Button" to="." method="_on_button_mouse_exited"]
+[connection signal="pressed" from="CanvasLayer/Control/Proprieties/Button" to="." method="_on_button_pressed"]
