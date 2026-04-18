@@ -112,9 +112,7 @@ func try_output(struct: Structure):
 			print("O index um!")
 			struct.output_offset.resize(1)
 			struct.output_offset[output_index] = offset
-		
-		
-		
+			
 
 func click():
 	if Input.is_action_pressed("Left_Click"):
