@@ -6,7 +6,13 @@ signal array_update(pos:Vector2i)
 class tile:
 	var structure: Structure = null
 	var can_construct: bool = true
-	
+	var ore: Item
+	var ore_rich: int
+	var ore_value: float
+
+@export var ores_available: Array[Item] = [] # Lista de itens (Minérios)
+@export var ore_distribution: Array[float] = [] # Porcentagens (ex: [50, 30, 20]) - Vazio, Ferro, Cobre
+@export var global_richness: float = 1
 
 @export var starchart_position: Vector2
 
@@ -24,7 +30,45 @@ func generate_tiles():
 		for x in planet_size:
 			var new_tile: tile = tile.new()
 			structure_grid[y][x] = new_tile
-		
+	generate_ores()
+
+func generate_ores():
+	var noise_dist = FastNoiseLite.new()
+	var noise_rich = FastNoiseLite.new()
+	
+	noise_rich.frequency = 0.8
+	noise_rich.fractal_octaves = 3
+	
+	noise_dist.frequency = 0.54
+	noise_dist.fractal_octaves = 1
+	
+	for y in range(2):
+		for x in planet_size:
+			var current_tile: tile = get_tile(Vector2i(x, y))
+			var angle = (float(x) / planet_size) * TAU
+			var nx = cos(angle)
+			var ny = sin(angle)
+			#Geração de rich patches
+			var normalized_value1 = (noise_rich.get_noise_3d(nx, ny, y) + 1.0) / 2
+			var coef_rich = global_richness + randf_range(-0.15 * global_richness, 0.05 * global_richness)
+			current_tile.ore_rich = clamp(normalized_value1 * coef_rich , 0, 1) * 100
+			#Geração de ores
+			var raw_noise = (noise_dist.get_noise_3d(nx, ny, y) + 1.0) / 2
+			var normalized_value0 =  remap(raw_noise, 0.2, 0.8, 0, 1)
+			var coef = randf_range(0.95, 1.05)
+			var ore_value = clamp(normalized_value0 * coef, 0, 1)
+			var threshold: float = 0
+			var index: int = -1
+			for chance in range(ore_distribution.size()):
+					
+					if ore_value >= ore_distribution[chance]/100 and threshold < ore_distribution[chance]/100:
+						threshold = ore_distribution[chance]/100
+						index = chance
+			if index == -1:
+				current_tile.ore = null
+			else:
+				current_tile.ore = ores_available[index]
+			current_tile.ore_value = ore_value
 
 func add_structure(type: PackedScene, pos: Vector2i = Vector2i.ZERO):
 	var new_structure: Structure = type.instantiate()
