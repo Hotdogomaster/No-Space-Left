@@ -6,6 +6,8 @@ var contents: Dictionary = {}
 
 @export var accepts_inputs: bool = true
 
+signal new_item_added()
+
 func can_receive(item: Item, amount:int = 1,  its_self:bool = false):
 	if !contents.has(item):
 		return true
@@ -21,7 +23,8 @@ func can_receive(item: Item, amount:int = 1,  its_self:bool = false):
 func add_item(item: Item, amount:int = 1):
 	if !contents.has(item):
 		contents[item] = 0
-	
+		new_item_added.emit()
+	new_item_added.emit()
 	contents[item] += amount
 	contents[item] = min(contents[item], max_contents)
 	
