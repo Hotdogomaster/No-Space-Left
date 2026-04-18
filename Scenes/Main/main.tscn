@@ -64,6 +64,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="Proprieties" type="Panel" parent="CanvasLayer/Control" node_paths=PackedStringArray("name_label", "inventory_label", "offset_label", "offset_button")]
+visible = false
 layout_mode = 0
 offset_right = 199.0
 offset_bottom = 242.0

@@ -7,8 +7,11 @@ extends Panel
 
 var selec_struct: Structure = null
 
-func _process(delta: float) -> void:
-	set_labels()
+func _process(_delta: float) -> void:
+	if selec_struct != null:
+		set_labels()
+	
+	pass
 
 func _on_main_get_config(structure: Structure) -> void:
 	selec_struct = structure
@@ -29,6 +32,7 @@ func set_labels():
 	set_offset_label(selec_struct)
 	offset_button.disabled = false
 	offset_button.visible = true
+	
 	
 
 func set_offset_label(struct: Structure):
