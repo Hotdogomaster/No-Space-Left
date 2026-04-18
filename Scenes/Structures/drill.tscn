@@ -1,7 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://baop332fu5apb"]
+[gd_scene load_steps=5 format=3 uid="uid://baop332fu5apb"]
 
 [ext_resource type="Script" path="res://Scripts/Objects/Structures/Basic_Drill.gd" id="1_ppmbp"]
-[ext_resource type="Resource" uid="uid://m2r3s1a7w7l5" path="res://Scenes/Items/Iron_Ore.tres" id="2_b3fh1"]
 [ext_resource type="Script" path="res://Scripts/Resources/Modules/Modules.gd" id="3_vqx52"]
 [ext_resource type="Script" path="res://Scripts/Resources/Modules/Inventory.gd" id="4_wde77"]
 
@@ -12,9 +11,7 @@ accepts_inputs = true
 
 [node name="Drill" type="Node2D"]
 script = ExtResource("1_ppmbp")
-item_to_mine = ExtResource("2_b3fh1")
 mine_time = 2
-mine_amount = 2
 Sname = "Drill"
 item_transfer_rate = 2
 accepts_input = false

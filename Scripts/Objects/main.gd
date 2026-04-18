@@ -5,7 +5,7 @@ extends Node
 var structure_construction: Array = ["res://Scenes/Structures/drill.tscn", "res://Scenes/Structures/furnace.tscn", "res://Scenes/Structures/pipe.tscn"]
 var structure_selected: PackedScene
 
-signal get_config(structure)
+signal get_config(tile, structure: Structure)
 signal mode_changed(mode: String)
 signal construction_selected(structure_name: String)
 
@@ -64,9 +64,9 @@ func _input(event: InputEvent) -> void:
 
 func try_get_config():
 	if get_tile_from_mouse().y != 5:
-		get_config.emit(planet.planet.get_structure(get_tile_from_mouse()))
+		get_config.emit(planet.planet.get_tile(get_tile_from_mouse()), planet.planet.get_structure(get_tile_from_mouse()))
 	else:
-		get_config.emit(null)
+		get_config.emit(null, null)
 
 func try_construct():
 	if get_tile_from_mouse().y != 5:
@@ -161,7 +161,7 @@ func change_mode(mode: String):
 		mode_changed.emit(modes[0])
 		if selected_mode == modes[0]:
 			select_structure(0)
-			get_config.emit(null)
+			get_config.emit(null, null)
 		return
 	mode_changed.emit(mode)
 	selected_mode = mode
@@ -222,7 +222,8 @@ func _on_button_mouse_exited() -> void:
 	by_button = false
 
 
-func _on_get_config(structure: Variant) -> void:
+func _on_get_config(tile, structure:Structure) -> void:
+	print("Tile:", tile)
 	structure_config = structure
 	output_index = 0
 	

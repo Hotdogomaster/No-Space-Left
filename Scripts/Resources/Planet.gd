@@ -36,8 +36,8 @@ func generate_ores():
 	var noise_dist = FastNoiseLite.new()
 	var noise_rich = FastNoiseLite.new()
 	
-	noise_rich.frequency = 0.8
-	noise_rich.fractal_octaves = 3
+	noise_rich.frequency = 0.6
+	noise_rich.fractal_octaves = 2
 	
 	noise_dist.frequency = 0.54
 	noise_dist.fractal_octaves = 1

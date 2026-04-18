@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://d1omdn8hxl801"]
+[gd_scene load_steps=15 format=3 uid="uid://d1omdn8hxl801"]
 
 [ext_resource type="Script" path="res://Scripts/Objects/main.gd" id="1_7fvoc"]
 [ext_resource type="PackedScene" uid="uid://dpshybpy7v265" path="res://Scenes/Planets/virtual_planet.tscn" id="1_nkwgi"]
@@ -8,8 +8,9 @@
 [ext_resource type="Resource" uid="uid://dxsil1h3nvnh1" path="res://Scenes/Items/Coal.tres" id="4_wgjps"]
 [ext_resource type="Resource" uid="uid://m2r3s1a7w7l5" path="res://Scenes/Items/Iron_Ore.tres" id="5_hp7hw"]
 [ext_resource type="Script" path="res://Scripts/GUI/Proprieties_Panel.gd" id="5_vu5jp"]
-[ext_resource type="Script" path="res://Scenes/Main/Mode_Label_Script.gd" id="6_irovj"]
-[ext_resource type="Script" path="res://Scenes/Main/construction_selected_label.gd" id="7_vke22"]
+[ext_resource type="Script" path="res://Scripts/GUI/Mode_Label_Script.gd" id="6_irovj"]
+[ext_resource type="Script" path="res://Scripts/GUI/construction_selected_label.gd" id="7_vke22"]
+[ext_resource type="Script" path="res://Scripts/GUI/tile_proprieties.gd" id="11_hhewk"]
 
 [sub_resource type="Resource" id="Resource_nwcqo"]
 script = ExtResource("2_r0c7n")
@@ -66,7 +67,7 @@ offset_bottom = 40.0
 [node name="Proprieties" type="Panel" parent="CanvasLayer/Control" node_paths=PackedStringArray("name_label", "inventory_label", "offset_label", "offset_button")]
 visible = false
 layout_mode = 0
-offset_right = 199.0
+offset_right = 200.0
 offset_bottom = 242.0
 script = ExtResource("5_vu5jp")
 name_label = NodePath("Name")
@@ -121,9 +122,33 @@ offset_right = 1150.0
 offset_bottom = 23.0
 script = ExtResource("7_vke22")
 
+[node name="Tile Proprieties" type="Panel" parent="CanvasLayer/Control" node_paths=PackedStringArray("ore_label")]
+visible = false
+layout_mode = 0
+offset_right = 162.0
+offset_bottom = 75.0
+script = ExtResource("11_hhewk")
+ore_label = NodePath("Ores")
+
+[node name="Tile_Title" type="Label" parent="CanvasLayer/Control/Tile Proprieties"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 2.0
+offset_right = 48.0
+offset_bottom = 25.0
+text = "Tile"
+
+[node name="Ores" type="Label" parent="CanvasLayer/Control/Tile Proprieties"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 30.0
+offset_right = 133.0
+offset_bottom = 53.0
+
 [connection signal="construction_selected" from="." to="CanvasLayer/Control/Construction_Selected" method="_on_main_construction_selected"]
 [connection signal="get_config" from="." to="." method="_on_get_config"]
 [connection signal="get_config" from="." to="CanvasLayer/Control/Proprieties" method="_on_main_get_config"]
+[connection signal="get_config" from="." to="CanvasLayer/Control/Tile Proprieties" method="_on_main_get_config"]
 [connection signal="mode_changed" from="." to="CanvasLayer/Control/Mode_Label" method="_on_main_mode_changed"]
 [connection signal="mouse_entered" from="CanvasLayer/Control/Proprieties/Button" to="." method="_on_button_mouse_entered"]
 [connection signal="mouse_exited" from="CanvasLayer/Control/Proprieties/Button" to="." method="_on_button_mouse_exited"]

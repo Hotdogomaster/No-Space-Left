@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/Objects/Structures/Furnace.gd" id="1_04r8f"]
 [ext_resource type="Script" path="res://Scripts/Resources/Recipe.gd" id="2_vhalq"]
-[ext_resource type="Resource" uid="uid://sryyokn4qa8d" path="res://Scenes/Recipes/Iron_bar_furnace_test.tres" id="3_vybu0"]
+[ext_resource type="Resource" uid="uid://c6rdbh1y4skcc" path="res://Scenes/Recipes/Iron_bar_furnace.tres" id="3_wc6ab"]
 [ext_resource type="Script" path="res://Scripts/Resources/Modules/Modules.gd" id="4_0hqb6"]
 [ext_resource type="Script" path="res://Scripts/Resources/Modules/Inventory.gd" id="5_a3dgg"]
 
@@ -13,7 +13,7 @@ accepts_inputs = true
 
 [node name="Furnace" type="Node2D"]
 script = ExtResource("1_04r8f")
-recipes = Array[ExtResource("2_vhalq")]([ExtResource("3_vybu0")])
+recipes = Array[ExtResource("2_vhalq")]([ExtResource("3_wc6ab")])
 Sname = "Basic Furnace"
 item_transfer_rate = 2
 modules = Array[ExtResource("4_0hqb6")]([SubResource("Resource_fq7tp")])

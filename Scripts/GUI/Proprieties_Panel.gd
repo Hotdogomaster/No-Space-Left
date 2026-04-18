@@ -13,9 +13,10 @@ func _process(_delta: float) -> void:
 	
 	pass
 
-func _on_main_get_config(structure: Structure) -> void:
+func _on_main_get_config(tile, structure) -> void:
 	selec_struct = structure
-	
+	if structure == null:
+		visible = false
 
 func set_labels():
 	if selec_struct == null:
