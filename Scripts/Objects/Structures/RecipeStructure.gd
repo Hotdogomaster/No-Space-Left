@@ -11,7 +11,7 @@ func _ready() -> void:
 	get_inventory().new_item_added.connect(on_item_added)
 
 func on_item_added():
-	print("bolacha")
+	
 	verify_recipe()
 
 func verify_recipe():
