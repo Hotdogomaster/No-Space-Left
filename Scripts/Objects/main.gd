@@ -64,6 +64,15 @@ func _input(event: InputEvent) -> void:
 
 func try_get_config():
 	if get_tile_from_mouse().y != 5:
+		
+		if planet.planet.get_tile(get_tile_from_mouse()).ore != null:
+			
+			print("Ore:", planet.planet.get_tile(get_tile_from_mouse()).ore.name)
+		else:
+			print("Ore: <Null>")
+		print("Ore value: ", planet.planet.get_tile(get_tile_from_mouse()).ore_value)
+		print(planet.planet.get_tile(get_tile_from_mouse()).ore_rich)
+		
 		get_config.emit(planet.planet.get_structure(get_tile_from_mouse()))
 	else:
 		get_config.emit(null)
