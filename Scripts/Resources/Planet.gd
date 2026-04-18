@@ -71,5 +71,7 @@ func get_structure(pos:Vector2i) -> Structure:
 func normalize_pos(pos: Vector2i) -> Vector2i:
 	var new_pos: Vector2i = pos
 	new_pos.x = new_pos.x % planet_size
+	if new_pos.x < 0:
+		new_pos.x = planet_size - 1 + new_pos.x
 	new_pos.y = clamp(pos.y, 0, 1)
 	return new_pos

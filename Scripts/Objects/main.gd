@@ -48,12 +48,14 @@ func get_tile_from_mouse() -> Vector2i:
 	
 	# índice do tile
 	var x = int(angle / angle_division)
+	
 	if planet.position.distance_to(mouse_pos) >= planet.base_size - 20:
 		if planet.position.distance_to(mouse_pos) >= planet.base_size + 90 and planet.base_size + 190 > planet.position.distance_to(mouse_pos):
 			return Vector2i(x, 1)
 		if planet.position.distance_to(mouse_pos) < planet.base_size + 90:
 			return Vector2i(x, 0)
 	return Vector2i(0, 5)
+	
 
 func _input(event: InputEvent) -> void:
 	get_key(event)
@@ -90,7 +92,20 @@ func try_removing():
 
 func try_output(struct: Structure):
 	if get_tile_from_mouse().y != 5:
-		var offset: Vector2i = get_tile_from_mouse() - struct.struct_position
+		
+		
+		var diff_x = get_tile_from_mouse().x - struct.struct_position.x
+		var diff_y = get_tile_from_mouse().y - struct.struct_position.y
+		
+		if abs(diff_x) > planet.planet.planet_size / 2.0:
+			diff_x -= planet.planet.planet_size * sign(diff_x)
+			
+		var offset: Vector2i = Vector2i(diff_x, diff_y)
+		
+		print("offset", offset)
+		
+		
+		
 		var offset_range = absi(offset.x) + absi(offset.y)
 		
 		if offset_range < struct.min_output_range:
