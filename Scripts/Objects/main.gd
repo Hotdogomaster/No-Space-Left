@@ -73,12 +73,16 @@ func try_construct():
 			
 			if structure_selected == null:
 				return
-			if planet.planet.get_structure(get_tile_from_mouse()) != null:
-				return
 			
 			if last_structure != null:
 				try_output(last_structure)
 				output_index = 0
+			
+			if planet.planet.get_structure(get_tile_from_mouse()) != null:
+				last_structure = planet.planet.get_structure(get_tile_from_mouse())
+				return
+			
+			
 			
 			print("construindo: ", get_tile_from_mouse())
 			planet.planet.add_structure(structure_selected, get_tile_from_mouse())
