@@ -22,7 +22,6 @@ func _get_ticked():
 		
 		progress = 0
 	
-	for output: Vector2i in output_offset:
-		push_item(output, item_to_mine)
+	try_output_items(item_to_mine)
 		
 		

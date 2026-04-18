@@ -86,4 +86,6 @@ func recalculate_priority():
 		return priority.get(a, 999) < priority.get(b, 999)
 	)
 	
-	
+func try_output_items(item: Item):
+	for output in output_offset:
+			push_item(output, item)
