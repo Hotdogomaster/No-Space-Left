@@ -19,7 +19,7 @@ ores_available = Array[ExtResource("3_4kg14")]([ExtResource("4_wgjps"), ExtResou
 ore_distribution = Array[float]([18.0, 33.0])
 global_richness = 0.8
 starchart_position = Vector2(0, 0)
-planet_size = 35
+planet_size = 45
 
 [sub_resource type="LabelSettings" id="LabelSettings_0okpa"]
 font_size = 12
@@ -32,10 +32,10 @@ script = ExtResource("1_7fvoc")
 planet = NodePath("Virtual Planet")
 
 [node name="ColorRect" type="ColorRect" parent="."]
-offset_left = -747.0
-offset_top = -450.0
-offset_right = 1728.0
-offset_bottom = 1294.0
+offset_left = -1731.0
+offset_top = -1180.0
+offset_right = 2972.0
+offset_bottom = 2570.0
 color = Color(0.00392157, 0, 0.0784314, 1)
 
 [node name="Virtual Planet" parent="." node_paths=PackedStringArray("inner_crust", "outer_crust", "highlight") instance=ExtResource("1_nkwgi")]
@@ -63,7 +63,6 @@ antialiased = true
 
 [node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("planet")]
 position = Vector2(576, 650)
-offset = Vector2(0, -100)
 zoom = Vector2(0.4, 0.4)
 script = ExtResource("4_mqgaq")
 planet = NodePath("../Virtual Planet")
@@ -123,7 +122,7 @@ layout_mode = 0
 offset_left = 417.0
 offset_right = 740.0
 offset_bottom = 23.0
-text = "maconha com batata"
+text = "NORMAL"
 horizontal_alignment = 1
 script = ExtResource("6_irovj")
 
