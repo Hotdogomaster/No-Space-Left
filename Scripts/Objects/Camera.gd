@@ -7,11 +7,15 @@ extends Camera2D
 @export var min_zoom: float = 0.8
 @export var max_zoom: float = 3.0
 
+@export var planet: VirtualPlanet
+
 # Variável para armazenar o zoom que desejamos alcançar
 var target_zoom: Vector2
 
 func _ready() -> void:
 	target_zoom = zoom
+	var radius = (planet.planet.planet_size * planet.face_size)/ TAU
+	position.y = planet.position.y - radius + 55
 
 func _process(delta: float) -> void:
 	handle_input()

@@ -19,7 +19,7 @@ ores_available = Array[ExtResource("3_4kg14")]([ExtResource("4_wgjps"), ExtResou
 ore_distribution = Array[float]([18.0, 33.0])
 global_richness = 0.8
 starchart_position = Vector2(0, 0)
-planet_size = 45
+planet_size = 35
 
 [sub_resource type="LabelSettings" id="LabelSettings_0okpa"]
 font_size = 12
@@ -61,10 +61,12 @@ antialiased = true
 color = Color(0.395113, 0.706311, 0.335977, 1)
 antialiased = true
 
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(576, 150)
-zoom = Vector2(3, 3)
+[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("planet")]
+position = Vector2(576, 650)
+offset = Vector2(0, -100)
+zoom = Vector2(0.4, 0.4)
 script = ExtResource("4_mqgaq")
+planet = NodePath("../Virtual Planet")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
