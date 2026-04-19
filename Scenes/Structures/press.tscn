@@ -1,0 +1,22 @@
+[gd_scene load_steps=7 format=3 uid="uid://c0fkgkfxrvxy"]
+
+[ext_resource type="Script" path="res://Scripts/Objects/Structures/Press.gd" id="1_83qeb"]
+[ext_resource type="Script" path="res://Scripts/Resources/Recipe.gd" id="2_ls8qd"]
+[ext_resource type="Resource" uid="uid://btow405offfn" path="res://Scenes/Recipes/Press_Recipes/Iron_Plate.tres" id="3_ypmo8"]
+[ext_resource type="Script" path="res://Scripts/Resources/Modules/Modules.gd" id="4_dv3vl"]
+[ext_resource type="Script" path="res://Scripts/Resources/Modules/Inventory.gd" id="5_m0dx0"]
+
+[sub_resource type="Resource" id="Resource_oxdmu"]
+script = ExtResource("5_m0dx0")
+max_contents = 20
+accepts_inputs = true
+
+[node name="Press" type="Node2D"]
+script = ExtResource("1_83qeb")
+recipes = Array[ExtResource("2_ls8qd")]([ExtResource("3_ypmo8")])
+Sname = "Press"
+modules = Array[ExtResource("4_dv3vl")]([SubResource("Resource_oxdmu")])
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+color = Color(0.537011, 0.537011, 0.537011, 1)
+polygon = PackedVector2Array(-34, 0, 34, 0, 18, -35, 34, -35, 34, -70, -34, -70, -34, -35, -18, -35)

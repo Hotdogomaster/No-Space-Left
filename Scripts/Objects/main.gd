@@ -3,7 +3,7 @@ extends Node
 @export var planet: VirtualPlanet
 
 var structure_construction: Array = ["res://Scenes/Structures/drill.tscn", "res://Scenes/Structures/furnace.tscn", "res://Scenes/Structures/pipe.tscn",
-"res://Scenes/Structures/catapult.tscn", "res://Scenes/Structures/receiver.tscn"]
+"res://Scenes/Structures/catapult.tscn", "res://Scenes/Structures/receiver.tscn", "res://Scenes/Structures/press.tscn"]
 var structure_selected: PackedScene
 
 signal get_config(structure: Structure)
@@ -193,7 +193,8 @@ func get_key(event: InputEvent):
 				select_structure(4)
 			KEY_5:
 				select_structure(5)
-			
+			KEY_6:
+				select_structure(6)
 			KEY_Q:
 				change_mode(modes[1])
 			KEY_ESCAPE:

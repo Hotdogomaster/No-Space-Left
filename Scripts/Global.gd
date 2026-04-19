@@ -2,7 +2,7 @@ extends Node
 
 var can_tick: bool = true
 
-var tick_frequency = 1.0
+var tick_frequency = 2.0
 
 var accumulator: float
 

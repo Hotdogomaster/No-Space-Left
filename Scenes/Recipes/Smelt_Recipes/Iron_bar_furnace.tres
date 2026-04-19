@@ -8,10 +8,10 @@
 [resource]
 script = ExtResource("1_7p5uc")
 inputs = {
-ExtResource("1_pxig4"): 1,
+ExtResource("1_pxig4"): 3,
 ExtResource("2_lno10"): 1
 }
 outputs = {
-ExtResource("3_lrecv"): 1
+ExtResource("3_lrecv"): 2
 }
-craft_time = 2
+craft_time = 5
