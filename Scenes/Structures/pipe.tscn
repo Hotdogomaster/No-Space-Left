@@ -6,13 +6,13 @@
 
 [sub_resource type="Resource" id="Resource_2adlg"]
 script = ExtResource("3_d1ren")
-max_contents = 10
+max_contents = 20
 accepts_inputs = true
 
 [node name="Pipe" type="Node2D"]
 script = ExtResource("1_0bafl")
 Sname = "Item Pipe"
-item_transfer_rate = 5
+item_transfer_rate = 10
 max_outputs = 2
 modules = Array[ExtResource("2_i66nj")]([SubResource("Resource_2adlg")])
 

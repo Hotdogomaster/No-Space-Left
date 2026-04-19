@@ -8,14 +8,14 @@
 
 [sub_resource type="Resource" id="Resource_fq7tp"]
 script = ExtResource("5_a3dgg")
-max_contents = 10
+max_contents = 20
 accepts_inputs = true
 
 [node name="Furnace" type="Node2D"]
 script = ExtResource("1_04r8f")
 recipes = Array[ExtResource("2_vhalq")]([ExtResource("3_wc6ab")])
 Sname = "Basic Furnace"
-item_transfer_rate = 2
+item_transfer_rate = 5
 modules = Array[ExtResource("4_0hqb6")]([SubResource("Resource_fq7tp")])
 
 [node name="Polygon2D" type="Polygon2D" parent="."]

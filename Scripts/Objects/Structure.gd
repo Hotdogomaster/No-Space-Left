@@ -9,7 +9,7 @@ var struct_position: Vector2i #Vetor de posição dentro de acesso para um array
 @export var item_transfer_rate: int = 1
 @export var accepts_input: bool = true
 
-@export var output_offset: Array[Vector2i] #até 2 outputs
+var output_offset: Array[Vector2i] = []#até 2 outputs
 @export var max_outputs: int = 1
 @export var min_output_range: int = 1
 @export var max_output_range: int = 1
@@ -69,6 +69,9 @@ func get_inventory() -> Inventory:
 	
 func calculate_amount(target: Inventory, item: Item) -> int:
 	var amount_remeaning = target.max_contents - target.contents[item]
+	if !get_inventory().contents.has(item):
+		return 0
+	
 	var amount_avalible = get_inventory().contents[item]
 	
 	
@@ -89,3 +92,6 @@ func recalculate_priority():
 func try_output_items(item: Item):
 	for output in output_offset:
 			push_item(output, item)
+
+func check_offset(pos: Vector2i):
+	return true

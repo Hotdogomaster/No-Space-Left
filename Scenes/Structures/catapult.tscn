@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://b41bwfpe01nkv"]
+
+[ext_resource type="Script" path="res://Scripts/Objects/Structures/Catapult.gd" id="1_v45le"]
+[ext_resource type="Script" path="res://Scripts/Resources/Modules/Modules.gd" id="2_o0rk4"]
+[ext_resource type="Script" path="res://Scripts/Resources/Modules/Inventory.gd" id="3_sv7po"]
+
+[sub_resource type="Resource" id="Resource_40kr6"]
+script = ExtResource("3_sv7po")
+max_contents = 7
+accepts_inputs = true
+
+[node name="Catapult" type="Node2D"]
+script = ExtResource("1_v45le")
+Sname = "Catapult"
+item_transfer_rate = 7
+min_output_range = 3
+max_output_range = 5
+modules = Array[ExtResource("2_o0rk4")]([SubResource("Resource_40kr6")])
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+color = Color(0.593516, 0.480481, 0.246867, 1)
+polygon = PackedVector2Array(-38.5, 0, 38.5, 0, 38.5, -30, 0, -50, -38.5, -30)

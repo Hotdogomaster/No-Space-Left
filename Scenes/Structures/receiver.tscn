@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://snayxa107jaa"]
+
+[ext_resource type="Script" path="res://Scripts/Objects/Structures/Receiver.gd" id="1_qfuen"]
+[ext_resource type="Script" path="res://Scripts/Resources/Modules/Modules.gd" id="2_cek3m"]
+[ext_resource type="Script" path="res://Scripts/Resources/Modules/Inventory.gd" id="3_tae3t"]
+
+[sub_resource type="Resource" id="Resource_qxo1l"]
+script = ExtResource("3_tae3t")
+max_contents = 30
+accepts_inputs = true
+
+[node name="Receiver" type="Node2D"]
+script = ExtResource("1_qfuen")
+Sname = "Receiver"
+item_transfer_rate = 10
+modules = Array[ExtResource("2_cek3m")]([SubResource("Resource_qxo1l")])
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+color = Color(0.53576, 0.745105, 0.862779, 1)
+polygon = PackedVector2Array(-38, 0, 38, 0, 38, -50, 15, -38, -15, -38, -38, -50)
