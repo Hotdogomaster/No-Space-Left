@@ -12,11 +12,13 @@ func _process(_delta: float) -> void:
 		set_labels()
 	
 	pass
+	
 
-func _on_main_get_config(tile, structure) -> void:
+func _on_main_get_config(structure) -> void:
 	selec_struct = structure
 	if structure == null:
-		visible = false
+		
+		animate(true)
 
 func set_labels():
 	if selec_struct == null:
@@ -25,9 +27,12 @@ func set_labels():
 		offset_label.text = ""
 		offset_button.disabled = true
 		offset_button.visible = false
-		visible = false
+		animate(true)
+		
+		
 		return
-	visible = true
+	
+	animate(false)
 	name_label.text = selec_struct.Sname
 	set_inventory_label(selec_struct)
 	set_offset_label(selec_struct)
@@ -54,3 +59,15 @@ func set_inventory_label(struct: Structure):
 	for key:Item in keys:
 		inventory_label.text += key.name + ": " + str(contents[key]) + "\n"
 		
+
+func animate(out: bool):
+	var tween = create_tween()
+	tween.set_trans(Tween.TRANS_QUAD)
+	tween.set_ease(Tween.EASE_OUT)
+	if out:
+		tween.tween_property(self, "scale", Vector2.ZERO, 0.6)
+		if tween.get_total_elapsed_time() >= 0.2:
+			visible = false
+	else:
+		visible = true
+		tween.tween_property(self, "scale", Vector2.ONE, 0.6)

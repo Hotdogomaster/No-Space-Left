@@ -14,11 +14,12 @@
 
 [sub_resource type="Resource" id="Resource_nwcqo"]
 script = ExtResource("2_r0c7n")
+planet_seed = 1010
 ores_available = Array[ExtResource("3_4kg14")]([ExtResource("4_wgjps"), ExtResource("5_hp7hw")])
-ore_distribution = Array[float]([30.0, 45.0])
+ore_distribution = Array[float]([18.0, 33.0])
 global_richness = 0.8
 starchart_position = Vector2(0, 0)
-planet_size = 35
+planet_size = 45
 
 [sub_resource type="LabelSettings" id="LabelSettings_0okpa"]
 font_size = 12
@@ -37,11 +38,20 @@ offset_right = 1728.0
 offset_bottom = 1294.0
 color = Color(0.00392157, 0, 0.0784314, 1)
 
-[node name="Virtual Planet" parent="." node_paths=PackedStringArray("inner_crust", "outer_crust") instance=ExtResource("1_nkwgi")]
+[node name="Virtual Planet" parent="." node_paths=PackedStringArray("inner_crust", "outer_crust", "highlight") instance=ExtResource("1_nkwgi")]
 position = Vector2(576, 650)
 planet = SubResource("Resource_nwcqo")
 inner_crust = NodePath("Inner_Crust")
 outer_crust = NodePath("Outer_Crust")
+highlight = NodePath("Highlight")
+
+[node name="Highlight" type="Line2D" parent="Virtual Planet"]
+top_level = true
+z_index = 1
+points = PackedVector2Array(90, 0, 0, 0)
+width = 5.0
+default_color = Color(0.275391, 0.45556, 1, 1)
+round_precision = 1
 
 [node name="Outer_Crust" type="Polygon2D" parent="Virtual Planet"]
 color = Color(0.201984, 0.37996, 0.16816, 1)
@@ -149,6 +159,7 @@ offset_bottom = 53.0
 [connection signal="get_config" from="." to="." method="_on_get_config"]
 [connection signal="get_config" from="." to="CanvasLayer/Control/Proprieties" method="_on_main_get_config"]
 [connection signal="get_config" from="." to="CanvasLayer/Control/Tile Proprieties" method="_on_main_get_config"]
+[connection signal="getted_tile" from="." to="CanvasLayer/Control/Tile Proprieties" method="_on_main_getted_tile"]
 [connection signal="mode_changed" from="." to="CanvasLayer/Control/Mode_Label" method="_on_main_mode_changed"]
 [connection signal="mouse_entered" from="CanvasLayer/Control/Proprieties/Button" to="." method="_on_button_mouse_entered"]
 [connection signal="mouse_exited" from="CanvasLayer/Control/Proprieties/Button" to="." method="_on_button_mouse_exited"]

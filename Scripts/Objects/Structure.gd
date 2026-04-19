@@ -20,7 +20,7 @@ func get_output_position(index: int = 0) -> Vector2i:
 	return struct_position + output_offset[index]
 
 func _get_ticked():
-	print("ainnn para main! Eu sou o " + name)
+	pass
 	
 func push_item(offset: Vector2i, item:Item):
 	var target_pos = struct_position + offset
@@ -57,7 +57,7 @@ func push_item(offset: Vector2i, item:Item):
 	
 	var new_amount = calculate_amount(target_inventory, item)
 	target_inventory.add_item(item, new_amount)
-	print(name, " empurrei ", new_amount ," item para ", target_structure.name, "!")
+	
 	get_inventory().remove_item(item, new_amount)
 	return true
 

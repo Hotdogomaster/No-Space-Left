@@ -10,13 +10,15 @@ class tile:
 	var ore_rich: int
 	var ore_value: float
 
+@export var planet_seed: int = 1010
+
 @export var ores_available: Array[Item] = [] # Lista de itens (Minérios)
 @export var ore_distribution: Array[float] = [] # Porcentagens (ex: [50, 30, 20]) - Vazio, Ferro, Cobre
 @export var global_richness: float = 1
 
 @export var starchart_position: Vector2
 
-@export var planet_size: int = 35 # entre 30 e 45 
+@export var planet_size: int = 35 # entre 25 e 45 
 var row0: Array[tile]
 var row1: Array[tile]
 var structure_grid: Array[Array] = [[], []]
@@ -35,6 +37,9 @@ func generate_tiles():
 func generate_ores():
 	var noise_dist = FastNoiseLite.new()
 	var noise_rich = FastNoiseLite.new()
+	
+	noise_dist.seed = planet_seed
+	noise_rich.seed = planet_seed +1
 	
 	noise_rich.frequency = 0.6
 	noise_rich.fractal_octaves = 2

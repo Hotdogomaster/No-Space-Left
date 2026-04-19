@@ -5,9 +5,10 @@ extends Node
 var structure_construction: Array = ["res://Scenes/Structures/drill.tscn", "res://Scenes/Structures/furnace.tscn", "res://Scenes/Structures/pipe.tscn"]
 var structure_selected: PackedScene
 
-signal get_config(tile, structure: Structure)
+signal get_config(structure: Structure)
 signal mode_changed(mode: String)
 signal construction_selected(structure_name: String)
+signal getted_tile(tile)
 
 var modes: Array[String] = ["NORMAL", "BUILD_MODE", "CONFIG_MODE"] 
 var selected_mode: String = "NORMAL"
@@ -28,6 +29,13 @@ func _ready() -> void:
 	structure_construction.push_front(null)
 
 func _process(delta: float) -> void:
+	if get_tile_from_mouse().y != 5:
+		getted_tile.emit(planet.planet.get_tile(get_tile_from_mouse())) 
+		planet.render_highlight(get_tile_from_mouse())
+		planet.highlight.visible = true
+	else:
+		getted_tile.emit(null)
+		planet.highlight.visible = false
 	pass
 
 func get_tile_from_mouse() -> Vector2i:
@@ -48,11 +56,11 @@ func get_tile_from_mouse() -> Vector2i:
 	
 	# índice do tile
 	var x = int(angle / angle_division)
-	
-	if planet.position.distance_to(mouse_pos) >= planet.base_size - 20:
-		if planet.position.distance_to(mouse_pos) >= planet.base_size + 90 and planet.base_size + 190 > planet.position.distance_to(mouse_pos):
+	var radius = (planet.planet.planet_size * planet.face_size)/ TAU
+	if planet.position.distance_to(mouse_pos) >= radius - 20:
+		if planet.position.distance_to(mouse_pos) >= radius + 90 and radius + 190 > planet.position.distance_to(mouse_pos):
 			return Vector2i(x, 1)
-		if planet.position.distance_to(mouse_pos) < planet.base_size + 90:
+		if planet.position.distance_to(mouse_pos) < radius + 90:
 			return Vector2i(x, 0)
 	return Vector2i(0, 5)
 	
@@ -64,9 +72,9 @@ func _input(event: InputEvent) -> void:
 
 func try_get_config():
 	if get_tile_from_mouse().y != 5:
-		get_config.emit(planet.planet.get_tile(get_tile_from_mouse()), planet.planet.get_structure(get_tile_from_mouse()))
+		get_config.emit(planet.planet.get_structure(get_tile_from_mouse()))
 	else:
-		get_config.emit(null, null)
+		get_config.emit(null)
 
 func try_construct():
 	if get_tile_from_mouse().y != 5:
@@ -84,14 +92,14 @@ func try_construct():
 			
 			
 			
-			print("construindo: ", get_tile_from_mouse())
+			
 			planet.planet.add_structure(structure_selected, get_tile_from_mouse())
 			last_structure = planet.planet.get_structure(get_tile_from_mouse())
 			
 
 func try_removing():
 	if get_tile_from_mouse().y != 5:
-			print("removendo: ", get_tile_from_mouse())
+			
 			planet.planet.remove_structure(get_tile_from_mouse())
 
 func try_output(struct: Structure):
@@ -106,10 +114,6 @@ func try_output(struct: Structure):
 			
 		var offset: Vector2i = Vector2i(diff_x, diff_y)
 		
-		print("offset", offset)
-		
-		
-		
 		var offset_range = absi(offset.x) + absi(offset.y)
 		
 		if offset_range < struct.min_output_range:
@@ -119,7 +123,7 @@ func try_output(struct: Structure):
 			return
 		
 		if struct.max_outputs == 2:
-			print("output index caralho! ", output_index)
+			
 			struct.output_offset.resize(output_index+1)
 			struct.output_offset[output_index] = offset
 			if output_index == 1:
@@ -128,7 +132,7 @@ func try_output(struct: Structure):
 			output_index = 1
 			
 		if struct.max_outputs == 1:
-			print("O index um!")
+			
 			struct.output_offset.resize(1)
 			struct.output_offset[output_index] = offset
 			
@@ -151,9 +155,9 @@ func click():
 				try_output(structure_config)
 	if Input.is_action_just_released("Left_Click"):
 		if selected_mode == "BUILD_MODE":
-			print("Estrutura anulada!")
+			
 			last_structure = null
-			print(last_structure)
+			
 func change_mode(mode: String):
 	
 	if selected_mode == mode:
@@ -161,7 +165,7 @@ func change_mode(mode: String):
 		mode_changed.emit(modes[0])
 		if selected_mode == modes[0]:
 			select_structure(0)
-			get_config.emit(null, null)
+			get_config.emit(null)
 		return
 	mode_changed.emit(mode)
 	selected_mode = mode
@@ -222,8 +226,8 @@ func _on_button_mouse_exited() -> void:
 	by_button = false
 
 
-func _on_get_config(tile, structure:Structure) -> void:
-	print("Tile:", tile)
+func _on_get_config(structure:Structure) -> void:
+	
 	structure_config = structure
 	output_index = 0
 	

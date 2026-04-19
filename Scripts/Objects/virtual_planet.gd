@@ -1,11 +1,12 @@
 extends Node2D
 class_name VirtualPlanet
 
-const base_size = 500
+const face_size = 87
 
 @export var planet: Planet
 @export var inner_crust: Polygon2D
 @export var outer_crust: Polygon2D
+@export var highlight: Line2D
 
 # Configurações de Rotação
 @export var rotation_speed: float = 1.5  # Força do giro por clique/tecla
@@ -32,10 +33,10 @@ func _process(delta: float) -> void:
 func _on_array_changed(pos: Vector2i):
 	if planet.get_structure(pos) == null:
 		render_structure(pos)
-		print("não existe mais. ou nunca existiu...")
+		
 	else:
 		render_structure(pos)
-		print("foi adicionado o ", planet.get_tile(pos).structure.name)
+		
 	pass
 
 
@@ -49,16 +50,18 @@ func handle_rotation_input(delta: float):
 func draw_crust():
 	var points = PackedVector2Array()
 	var angle_division = deg_to_rad(360.0 / planet.planet_size)
+	var radius = (planet.planet_size * face_size)/ TAU
+	
 	
 	for i in planet.planet_size:
-		var x = base_size * cos(angle_division * i)
-		var y = base_size * sin(angle_division * i)
+		var x = radius * cos(angle_division * i)
+		var y = radius * sin(angle_division * i)
 		points.append(Vector2(x, y))
 		
 	inner_crust.polygon = points
 	
 	for j in planet.planet_size:
-		points[j] = points[j] / base_size * (base_size+100)
+		points[j] = points[j] / radius * (radius+100)
 	outer_crust.polygon = points
 
 func render_structure(pos: Vector2i):
@@ -71,13 +74,20 @@ func render_structure(pos: Vector2i):
 		return
 	var structure = planet.get_structure(pos)
 	var angle_division = deg_to_rad(360.0 / planet.planet_size)
-	structure.position.x = (base_size + (pos.y * 100)) * cos(angle_division * pos.x) 
-	structure.position.y = (base_size + (pos.y * 100)) * sin(angle_division * pos.x)
+	var radius = (planet.planet_size * face_size)/ TAU
+	structure.position.x = (radius + (pos.y * 100)) * cos(angle_division * pos.x) 
+	structure.position.y = (radius + (pos.y * 100)) * sin(angle_division * pos.x)
 	structure.rotation = angle_division * (pos.x + 0.5) + PI / 2
 	var sprite: Node2D = structure.get_child(0)
-	var face_size = 2 * PI * (base_size + (pos.y * 100)) / planet.planet_size
-	sprite.position.x = face_size / 2
+	var Lface_size = 2 * PI * (radius + (pos.y * 100)) / planet.planet_size
+	sprite.position.x = Lface_size / 2
 	add_child(structure)
 	
-	
-	
+func render_highlight(pos: Vector2i):
+	var angle_division = deg_to_rad(360.0 / planet.planet_size)
+	var radius = (planet.planet_size * face_size)/ TAU
+	var outer_size = face_size * radius / (radius+100)
+	highlight.points[0].x = ((face_size -outer_size ) * pos.y) + face_size
+	highlight.position.x = (radius + (pos.y * 100)) * cos((angle_division * pos.x) + rotation) + position.x
+	highlight.position.y = (radius + (pos.y * 100)) * sin((angle_division * pos.x) + rotation) + position.y
+	highlight.rotation = (angle_division * (pos.x + 0.5) + PI / 2) + rotation
