@@ -49,8 +49,8 @@ highlight = NodePath("Highlight")
 top_level = true
 z_index = 1
 points = PackedVector2Array(90, 0, 0, 0)
-width = 5.0
-default_color = Color(0.275391, 0.45556, 1, 1)
+width = 8.0
+default_color = Color(1, 0.17283, 0.139473, 1)
 round_precision = 1
 
 [node name="Outer_Crust" type="Polygon2D" parent="Virtual Planet"]

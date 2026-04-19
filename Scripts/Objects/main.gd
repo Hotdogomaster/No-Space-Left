@@ -20,6 +20,8 @@ var output_index: int = 0
 
 var last_structure: Structure = null
 
+var hlight_color: Color
+
 var copied_structure: Dictionary = {
 	"name" = "",
 	"outputs" = []
@@ -29,13 +31,7 @@ func _ready() -> void:
 	structure_construction.push_front(null)
 
 func _process(delta: float) -> void:
-	if get_tile_from_mouse().y != 5:
-		getted_tile.emit(planet.planet.get_tile(get_tile_from_mouse())) 
-		planet.render_highlight(get_tile_from_mouse())
-		planet.highlight.visible = true
-	else:
-		getted_tile.emit(null)
-		planet.highlight.visible = false
+	set_highlight()
 	pass
 
 func get_tile_from_mouse() -> Vector2i:
@@ -76,22 +72,25 @@ func try_get_config():
 	else:
 		get_config.emit(null)
 
+func can_construct():
+	if structure_selected == null:
+		
+		return false
+	if planet.planet.get_structure(get_tile_from_mouse()) != null:
+		last_structure = planet.planet.get_structure(get_tile_from_mouse())
+		return false
+	
+	return true
+
 func try_construct():
 	if get_tile_from_mouse().y != 5:
-			
-			if structure_selected == null:
-				return
 			
 			if last_structure != null:
 				try_output(last_structure)
 				output_index = 0
 			
-			if planet.planet.get_structure(get_tile_from_mouse()) != null:
-				last_structure = planet.planet.get_structure(get_tile_from_mouse())
+			if !can_construct():
 				return
-			
-			
-			
 			
 			planet.planet.add_structure(structure_selected, get_tile_from_mouse())
 			last_structure = planet.planet.get_structure(get_tile_from_mouse())
@@ -231,3 +230,18 @@ func _on_get_config(structure:Structure) -> void:
 	structure_config = structure
 	output_index = 0
 	
+func set_highlight():
+	if get_tile_from_mouse().y != 5:
+		if selected_mode == "BUILD_MODE":
+			if can_construct() and !Input.is_action_pressed("Right_Click"):
+				hlight_color = Color(116, 222, 31, 255)
+			else:
+				hlight_color = Color(255, 44, 36, 255)
+		else:
+			hlight_color = Color(70.0, 116.0, 255.0, 255.0)
+		getted_tile.emit(planet.planet.get_tile(get_tile_from_mouse())) 
+		planet.render_highlight(get_tile_from_mouse(), hlight_color)
+		planet.highlight.visible = true
+	else:
+		getted_tile.emit(null)
+		planet.highlight.visible = false
