@@ -78,7 +78,6 @@ func can_construct():
 		
 		return false
 	if planet.planet.get_structure(get_tile_from_mouse()) != null:
-		last_structure = planet.planet.get_structure(get_tile_from_mouse())
 		return false
 	
 	return true
@@ -141,7 +140,7 @@ func try_output(struct: Structure):
 			
 
 func click():
-	print(last_structure)
+	
 	if Input.is_action_pressed("Left_Click"):
 		if selected_mode == "BUILD_MODE":
 			
@@ -159,7 +158,7 @@ func click():
 				try_output(structure_config)
 	if Input.is_action_just_released("Left_Click"):
 		if selected_mode == "BUILD_MODE":
-			print("ANULADO!")
+			
 			last_structure = null
 			
 func change_mode(mode: String):
