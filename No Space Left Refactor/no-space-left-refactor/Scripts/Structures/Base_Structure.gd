@@ -1,11 +1,15 @@
 extends Node2D
 class_name Structure
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
+@export var struct_name: String = "Hotdog_Machine"
 
+@export_category("Output Management")
+@export var max_outputs: int = 1
+@export var output_min_range: int = 1
+@export var output_max_range: int = 1
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+var grid_pos: Vector2i
+
+@export var item_container: ItemContainer
+#@export var fluid_container:
+#@export var gas_container: ???
