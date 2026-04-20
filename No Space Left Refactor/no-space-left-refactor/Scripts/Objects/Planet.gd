@@ -38,12 +38,14 @@ func get_structure(pos:Vector2i) -> Structure:
 #region Structure Management
 
 func add_structure(struct: PackedScene, pos: Vector2i):
-	var new_struct = struct.instantiate()
+	
 	var tile = get_tile(pos)
 	
 	if tile.structure != null or !tile.can_construct:
 		return false
 	
+	var new_struct = struct.instantiate()
+	new_struct.planet = self
 	tile.structure = new_struct
 	SignalManager.grid_changed.emit(normalize_pos(pos))
 	return true

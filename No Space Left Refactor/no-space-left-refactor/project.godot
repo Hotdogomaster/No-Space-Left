@@ -18,6 +18,7 @@ config/features=PackedStringArray("4.3", "GL Compatibility")
 
 SignalManager="*res://Scripts/Singletons/Signal_Manager.gd"
 Utils="*res://Scripts/Singletons/Utils.gd"
+GameManager="*res://Scripts/Singletons/Game_Manager.gd"
 
 [file_customization]
 

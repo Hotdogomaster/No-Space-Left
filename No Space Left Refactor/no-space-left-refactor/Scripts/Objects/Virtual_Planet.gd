@@ -11,8 +11,8 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 
-func cart_to_polar(obj_pos: Vector2, fixed: bool = false):
+func cart_to_polar(obj_pos: Vector2):
 	return Utils.cart_to_polar(position, obj_pos)
 
-func polar_to_cart(polar: Utils.polarCoord, fixed: bool = false):
+func polar_to_cart(polar: Utils.polarCoord):
 	return Utils.polar_to_cart(position, polar)
