@@ -12,7 +12,18 @@ config_version=5
 
 config/name="No Space Left Refactor"
 config/features=PackedStringArray("4.3", "GL Compatibility")
-config/icon="res://icon.svg"
+
+[autoload]
+
+SignalManager="*res://Scripts/Singletons/Signal_Manager.gd"
+
+[file_customization]
+
+folder_colors={
+"res://Resources/": "blue",
+"res://Scenes/": "yellow",
+"res://Scripts/": "green"
+}
 
 [rendering]
 
