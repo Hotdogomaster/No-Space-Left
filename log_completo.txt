@@ -1,0 +1,644 @@
+commit a44466bf40efac9134beb4bb09d7522638f1d0ad
+Author: Hotdogomaster <derpadobro@gmail.com>
+Date:   Sun Apr 19 18:08:48 2026 -0300
+
+    Nothing Intrusting
+    
+    literalmente nada importante aqui, só exportei, por algum motivo o git salvou essa "mudança"
+
+diff --git a/export_presets.cfg b/export_presets.cfg
+index f32dc61..9107e5a 100644
+--- a/export_presets.cfg
++++ b/export_presets.cfg
+@@ -9,7 +9,7 @@ custom_features=""
+ export_filter="all_resources"
+ include_filter=""
+ exclude_filter=""
+-export_path="../../Desktop/kkk.exe"
++export_path="../../../Desktop/No Space Left 0.0.3A.exe"
+ encryption_include_filters=""
+ encryption_exclude_filters=""
+ encrypt_pck=false
+
+commit b1c24bbd6b1347fde56119442005c4e8d0643f05
+Author: Hotdogomaster <derpadobro@gmail.com>
+Date:   Sun Apr 19 16:38:06 2026 -0300
+
+    New Structure: Press
+    
+    Uma estrutura nova que faz a mesma coisa que a Furnace, pega uma recipe e produz o que aquela recipe necessita.
+
+diff --git a/Scenes/Items/Iron_Plate.tres b/Scenes/Items/Iron_Plate.tres
+new file mode 100644
+index 0000000..3f0c833
+--- /dev/null
++++ b/Scenes/Items/Iron_Plate.tres
+@@ -0,0 +1,8 @@
++[gd_resource type="Resource" script_class="Item" load_steps=2 format=3 uid="uid://dvy4463jugebj"]
++
++[ext_resource type="Script" path="res://Scripts/Resources/Item.gd" id="1_0t088"]
++
++[resource]
++script = ExtResource("1_0t088")
++Id = 3
++name = "Iron_Plate"
+diff --git a/Scenes/Recipes/Iron_bar_furnace_test.tres b/Scenes/Recipes/Iron_bar_furnace_test.tres
+deleted file mode 100644
+index abbf5d9..0000000
+--- a/Scenes/Recipes/Iron_bar_furnace_test.tres
++++ /dev/null
+@@ -1,15 +0,0 @@
+-[gd_resource type="Resource" script_class="Recipe" load_steps=4 format=3 uid="uid://sryyokn4qa8d"]
+-
+-[ext_resource type="Resource" uid="uid://m2r3s1a7w7l5" path="res://Scenes/Items/Iron_Ore.tres" id="1_epvwf"]
+-[ext_resource type="Resource" uid="uid://bdtcalouayyi1" path="res://Scenes/Items/Iron_Ingot.tres" id="3_rakh8"]
+-[ext_resource type="Script" path="res://Scripts/Resources/Recipe.gd" id="4_2x6uj"]
+-
+-[resource]
+-script = ExtResource("4_2x6uj")
+-inputs = {
+-ExtResource("1_epvwf"): 1
+-}
+-outputs = {
+-ExtResource("3_rakh8"): 1
+-}
+-craft_time = 2
+diff --git a/Scenes/Recipes/Press_Recipes/Iron_Plate.tres b/Scenes/Recipes/Press_Recipes/Iron_Plate.tres
+new file mode 100644
+index 0000000..41e399f
+--- /dev/null
++++ b/Scenes/Recipes/Press_Recipes/Iron_Plate.tres
+@@ -0,0 +1,15 @@
++[gd_resource type="Resource" script_class="Recipe" load_steps=4 format=3 uid="uid://btow405offfn"]
++
++[ext_resource type="Script" path="res://Scripts/Resources/Recipe.gd" id="1_fovyl"]
++[ext_resource type="Resource" uid="uid://bdtcalouayyi1" path="res://Scenes/Items/Iron_Ingot.tres" id="1_q1wdu"]
++[ext_resource type="Resource" uid="uid://dvy4463jugebj" path="res://Scenes/Items/Iron_Plate.tres" id="2_fwmqq"]
++
++[resource]
++script = ExtResource("1_fovyl")
++inputs = {
++ExtResource("1_q1wdu"): 2
++}
++outputs = {
++ExtResource("2_fwmqq"): 1
++}
++craft_time = 10
+diff --git a/Scenes/Recipes/Iron_bar_furnace.tres b/Scenes/Recipes/Smelt_Recipes/Iron_bar_furnace.tres
+similarity index 89%
+rename from Scenes/Recipes/Iron_bar_furnace.tres
+rename to Scenes/Recipes/Smelt_Recipes/Iron_bar_furnace.tres
+index 3355217..22fecb4 100644
+--- a/Scenes/Recipes/Iron_bar_furnace.tres
++++ b/Scenes/Recipes/Smelt_Recipes/Iron_bar_furnace.tres
+@@ -8,10 +8,10 @@
+ [resource]
+ script = ExtResource("1_7p5uc")
+ inputs = {
+-ExtResource("1_pxig4"): 1,
++ExtResource("1_pxig4"): 3,
+ ExtResource("2_lno10"): 1
+ }
+ outputs = {
+-ExtResource("3_lrecv"): 1
++ExtResource("3_lrecv"): 2
+ }
+-craft_time = 2
++craft_time = 5
+diff --git a/Scenes/Structures/furnace.tscn b/Scenes/Structures/furnace.tscn
+index 7195e1e..a94195e 100644
+--- a/Scenes/Structures/furnace.tscn
++++ b/Scenes/Structures/furnace.tscn
+@@ -2,7 +2,7 @@
+ 
+ [ext_resource type="Script" path="res://Scripts/Objects/Structures/Furnace.gd" id="1_04r8f"]
+ [ext_resource type="Script" path="res://Scripts/Resources/Recipe.gd" id="2_vhalq"]
+-[ext_resource type="Resource" uid="uid://c6rdbh1y4skcc" path="res://Scenes/Recipes/Iron_bar_furnace.tres" id="3_wc6ab"]
++[ext_resource type="Resource" uid="uid://c6rdbh1y4skcc" path="res://Scenes/Recipes/Smelt_Recipes/Iron_bar_furnace.tres" id="3_wc6ab"]
+ [ext_resource type="Script" path="res://Scripts/Resources/Modules/Modules.gd" id="4_0hqb6"]
+ [ext_resource type="Script" path="res://Scripts/Resources/Modules/Inventory.gd" id="5_a3dgg"]
+ 
+diff --git a/Scenes/Structures/press.tscn b/Scenes/Structures/press.tscn
+new file mode 100644
+index 0000000..2a1ab61
+--- /dev/null
++++ b/Scenes/Structures/press.tscn
+@@ -0,0 +1,22 @@
++[gd_scene load_steps=7 format=3 uid="uid://c0fkgkfxrvxy"]
++
++[ext_resource type="Script" path="res://Scripts/Objects/Structures/Press.gd" id="1_83qeb"]
++[ext_resource type="Script" path="res://Scripts/Resources/Recipe.gd" id="2_ls8qd"]
++[ext_resource type="Resource" uid="uid://btow405offfn" path="res://Scenes/Recipes/Press_Recipes/Iron_Plate.tres" id="3_ypmo8"]
++[ext_resource type="Script" path="res://Scripts/Resources/Modules/Modules.gd" id="4_dv3vl"]
++[ext_resource type="Script" path="res://Scripts/Resources/Modules/Inventory.gd" id="5_m0dx0"]
++
++[sub_resource type="Resource" id="Resource_oxdmu"]
++script = ExtResource("5_m0dx0")
++max_contents = 20
++accepts_inputs = true
++
++[node name="Press" type="Node2D"]
++script = ExtResource("1_83qeb")
++recipes = Array[ExtResource("2_ls8qd")]([ExtResource("3_ypmo8")])
++Sname = "Press"
++modules = Array[ExtResource("4_dv3vl")]([SubResource("Resource_oxdmu")])
++
++[node name="Polygon2D" type="Polygon2D" parent="."]
++color = Color(0.537011, 0.537011, 0.537011, 1)
++polygon = PackedVector2Array(-34, 0, 34, 0, 18, -35, 34, -35, 34, -70, -34, -70, -34, -35, -18, -35)
+diff --git a/Scripts/Global.gd b/Scripts/Global.gd
+index 4cccdc6..ee27223 100644
+--- a/Scripts/Global.gd
++++ b/Scripts/Global.gd
+@@ -2,7 +2,7 @@ extends Node
+ 
+ var can_tick: bool = true
+ 
+-var tick_frequency = 1.0
++var tick_frequency = 2.0
+ 
+ var accumulator: float
+ 
+diff --git a/Scripts/Objects/Structures/Press.gd b/Scripts/Objects/Structures/Press.gd
+new file mode 100644
+index 0000000..28f2556
+--- /dev/null
++++ b/Scripts/Objects/Structures/Press.gd
+@@ -0,0 +1,29 @@
++extends RecipeStructure
++class_name Press
++
++func _get_ticked():
++	if locked_recipe == null:
++		
++		return
++	
++	
++	if can_craft():
++		progress += 1
++		
++		if progress >= locked_recipe.craft_time:
++			progress = 0
++			
++			var inv: Inventory = get_inventory()
++			#remove os items do inventario conforme a recipe diz
++			for input in locked_recipe.inputs.keys():
++				inv.remove_item(input, locked_recipe.inputs[input])
++			#adiciona os items no inventario
++			for output in locked_recipe.outputs.keys():
++				#verifica se o output está cheio
++				if locked_recipe.outputs[output] <= inv.max_contents - inv.contents[output]:
++					inv.add_item(output, locked_recipe.outputs[output])
++			
++	
++	
++	for product in locked_recipe.outputs.keys():
++		try_output_items(product)
+diff --git a/Scripts/Objects/main.gd b/Scripts/Objects/main.gd
+index bfd7d6a..928a876 100644
+--- a/Scripts/Objects/main.gd
++++ b/Scripts/Objects/main.gd
+@@ -3,7 +3,7 @@ extends Node
+ @export var planet: VirtualPlanet
+ 
+ var structure_construction: Array = ["res://Scenes/Structures/drill.tscn", "res://Scenes/Structures/furnace.tscn", "res://Scenes/Structures/pipe.tscn",
+-"res://Scenes/Structures/catapult.tscn", "res://Scenes/Structures/receiver.tscn"]
++"res://Scenes/Structures/catapult.tscn", "res://Scenes/Structures/receiver.tscn", "res://Scenes/Structures/press.tscn"]
+ var structure_selected: PackedScene
+ 
+ signal get_config(structure: Structure)
+@@ -193,7 +193,8 @@ func get_key(event: InputEvent):
+ 				select_structure(4)
+ 			KEY_5:
+ 				select_structure(5)
+-			
++			KEY_6:
++				select_structure(6)
+ 			KEY_Q:
+ 				change_mode(modes[1])
+ 			KEY_ESCAPE:
+
+commit 4794dfb696d3dab868310fa6793ad5813eeacc83
+Author: Hotdogomaster <derpadobro@gmail.com>
+Date:   Sun Apr 19 16:18:24 2026 -0300
+
+    Last Structure Bug Resolved
+    
+    O Last Structure não estava sendo setado como Null, ocasionando em resultados não esperados.
+
+diff --git a/Scripts/Objects/main.gd b/Scripts/Objects/main.gd
+index 0337693..bfd7d6a 100644
+--- a/Scripts/Objects/main.gd
++++ b/Scripts/Objects/main.gd
+@@ -78,7 +78,6 @@ func can_construct():
+ 		
+ 		return false
+ 	if planet.planet.get_structure(get_tile_from_mouse()) != null:
+-		last_structure = planet.planet.get_structure(get_tile_from_mouse())
+ 		return false
+ 	
+ 	return true
+@@ -141,7 +140,7 @@ func try_output(struct: Structure):
+ 			
+ 
+ func click():
+-	print(last_structure)
++	
+ 	if Input.is_action_pressed("Left_Click"):
+ 		if selected_mode == "BUILD_MODE":
+ 			
+@@ -159,7 +158,7 @@ func click():
+ 				try_output(structure_config)
+ 	if Input.is_action_just_released("Left_Click"):
+ 		if selected_mode == "BUILD_MODE":
+-			print("ANULADO!")
++			
+ 			last_structure = null
+ 			
+ func change_mode(mode: String):
+
+commit 8c8567059249d8c6172b146659fda597197c62da
+Author: Hotdogomaster <derpadobro@gmail.com>
+Date:   Sun Apr 19 16:16:17 2026 -0300
+
+    New Structures
+    
+    Agora temos o Receiver e a Catapult.
+
+diff --git a/Scenes/Structures/catapult.tscn b/Scenes/Structures/catapult.tscn
+new file mode 100644
+index 0000000..dd9c16a
+--- /dev/null
++++ b/Scenes/Structures/catapult.tscn
+@@ -0,0 +1,22 @@
++[gd_scene load_steps=5 format=3 uid="uid://b41bwfpe01nkv"]
++
++[ext_resource type="Script" path="res://Scripts/Objects/Structures/Catapult.gd" id="1_v45le"]
++[ext_resource type="Script" path="res://Scripts/Resources/Modules/Modules.gd" id="2_o0rk4"]
++[ext_resource type="Script" path="res://Scripts/Resources/Modules/Inventory.gd" id="3_sv7po"]
++
++[sub_resource type="Resource" id="Resource_40kr6"]
++script = ExtResource("3_sv7po")
++max_contents = 7
++accepts_inputs = true
++
++[node name="Catapult" type="Node2D"]
++script = ExtResource("1_v45le")
++Sname = "Catapult"
++item_transfer_rate = 7
++min_output_range = 3
++max_output_range = 5
++modules = Array[ExtResource("2_o0rk4")]([SubResource("Resource_40kr6")])
++
++[node name="Polygon2D" type="Polygon2D" parent="."]
++color = Color(0.593516, 0.480481, 0.246867, 1)
++polygon = PackedVector2Array(-38.5, 0, 38.5, 0, 38.5, -30, 0, -50, -38.5, -30)
+diff --git a/Scenes/Structures/drill.tscn b/Scenes/Structures/drill.tscn
+index 27c4323..2927bc6 100644
+--- a/Scenes/Structures/drill.tscn
++++ b/Scenes/Structures/drill.tscn
+@@ -6,17 +6,17 @@
+ 
+ [sub_resource type="Resource" id="Resource_1518r"]
+ script = ExtResource("4_wde77")
+-max_contents = 10
++max_contents = 25
+ accepts_inputs = true
+ 
+ [node name="Drill" type="Node2D"]
+ script = ExtResource("1_ppmbp")
+-mine_time = 2
++mine_time = 4
+ Sname = "Drill"
+-item_transfer_rate = 2
++item_transfer_rate = 5
+ accepts_input = false
+ modules = Array[ExtResource("3_vqx52")]([SubResource("Resource_1518r")])
+ 
+ [node name="Polygon2D" type="Polygon2D" parent="."]
+ color = Color(0.227451, 0.364706, 1, 1)
+-polygon = PackedVector2Array(-42.5, 0, 42.5, 0, 42.5, -100, -42.5, -100)
++polygon = PackedVector2Array(-39.5, 0, 39.5, 0, 39.5, -90, -39.5, -90)
+diff --git a/Scenes/Structures/furnace.tscn b/Scenes/Structures/furnace.tscn
+index 1e38bae..7195e1e 100644
+--- a/Scenes/Structures/furnace.tscn
++++ b/Scenes/Structures/furnace.tscn
+@@ -8,14 +8,14 @@
+ 
+ [sub_resource type="Resource" id="Resource_fq7tp"]
+ script = ExtResource("5_a3dgg")
+-max_contents = 10
++max_contents = 20
+ accepts_inputs = true
+ 
+ [node name="Furnace" type="Node2D"]
+ script = ExtResource("1_04r8f")
+ recipes = Array[ExtResource("2_vhalq")]([ExtResource("3_wc6ab")])
+ Sname = "Basic Furnace"
+-item_transfer_rate = 2
++item_transfer_rate = 5
+ modules = Array[ExtResource("4_0hqb6")]([SubResource("Resource_fq7tp")])
+ 
+ [node name="Polygon2D" type="Polygon2D" parent="."]
+diff --git a/Scenes/Structures/pipe.tscn b/Scenes/Structures/pipe.tscn
+index 713709a..f660c84 100644
+--- a/Scenes/Structures/pipe.tscn
++++ b/Scenes/Structures/pipe.tscn
+@@ -6,13 +6,13 @@
+ 
+ [sub_resource type="Resource" id="Resource_2adlg"]
+ script = ExtResource("3_d1ren")
+-max_contents = 10
++max_contents = 20
+ accepts_inputs = true
+ 
+ [node name="Pipe" type="Node2D"]
+ script = ExtResource("1_0bafl")
+ Sname = "Item Pipe"
+-item_transfer_rate = 5
++item_transfer_rate = 10
+ max_outputs = 2
+ modules = Array[ExtResource("2_i66nj")]([SubResource("Resource_2adlg")])
+ 
+diff --git a/Scenes/Structures/receiver.tscn b/Scenes/Structures/receiver.tscn
+new file mode 100644
+index 0000000..1a8c244
+--- /dev/null
++++ b/Scenes/Structures/receiver.tscn
+@@ -0,0 +1,20 @@
++[gd_scene load_steps=5 format=3 uid="uid://snayxa107jaa"]
++
++[ext_resource type="Script" path="res://Scripts/Objects/Structures/Receiver.gd" id="1_qfuen"]
++[ext_resource type="Script" path="res://Scripts/Resources/Modules/Modules.gd" id="2_cek3m"]
++[ext_resource type="Script" path="res://Scripts/Resources/Modules/Inventory.gd" id="3_tae3t"]
++
++[sub_resource type="Resource" id="Resource_qxo1l"]
++script = ExtResource("3_tae3t")
++max_contents = 30
++accepts_inputs = true
++
++[node name="Receiver" type="Node2D"]
++script = ExtResource("1_qfuen")
++Sname = "Receiver"
++item_transfer_rate = 10
++modules = Array[ExtResource("2_cek3m")]([SubResource("Resource_qxo1l")])
++
++[node name="Polygon2D" type="Polygon2D" parent="."]
++color = Color(0.53576, 0.745105, 0.862779, 1)
++polygon = PackedVector2Array(-38, 0, 38, 0, 38, -50, 15, -38, -15, -38, -38, -50)
+diff --git a/Scripts/Objects/Structure.gd b/Scripts/Objects/Structure.gd
+index 8f28e81..377ea71 100644
+--- a/Scripts/Objects/Structure.gd
++++ b/Scripts/Objects/Structure.gd
+@@ -9,7 +9,7 @@ var struct_position: Vector2i #Vetor de posição dentro de acesso para um array
+ @export var item_transfer_rate: int = 1
+ @export var accepts_input: bool = true
+ 
+-@export var output_offset: Array[Vector2i] #até 2 outputs
++var output_offset: Array[Vector2i] = []#até 2 outputs
+ @export var max_outputs: int = 1
+ @export var min_output_range: int = 1
+ @export var max_output_range: int = 1
+@@ -69,6 +69,9 @@ func get_inventory() -> Inventory:
+ 	
+ func calculate_amount(target: Inventory, item: Item) -> int:
+ 	var amount_remeaning = target.max_contents - target.contents[item]
++	if !get_inventory().contents.has(item):
++		return 0
++	
+ 	var amount_avalible = get_inventory().contents[item]
+ 	
+ 	
+@@ -89,3 +92,6 @@ func recalculate_priority():
+ func try_output_items(item: Item):
+ 	for output in output_offset:
+ 			push_item(output, item)
++
++func check_offset(pos: Vector2i):
++	return true
+diff --git a/Scripts/Objects/Structures/Catapult.gd b/Scripts/Objects/Structures/Catapult.gd
+new file mode 100644
+index 0000000..0d03400
+--- /dev/null
++++ b/Scripts/Objects/Structures/Catapult.gd
+@@ -0,0 +1,35 @@
++extends Structure
++class_name Catapult
++
++var cooldown: int
++
++var locked_item: Item = null
++
++@export var time_to_shot: int = 3
++# Called when the node enters the scene tree for the first time.
++
++func check_offset(pos: Vector2i):
++	if planet.get_structure(pos) == null:
++		if !output_offset.is_empty():
++			output_offset.clear()
++		return false
++	if planet.get_structure(pos).Sname != "Receiver":
++		if !output_offset.is_empty():
++			output_offset.clear()
++		return false
++	return true
++
++func can_receive_item(item):
++	return locked_item == item
++
++func _ready() -> void:
++	pass # Replace with function body.
++
++
++# Called every frame. 'delta' is the elapsed time since the previous frame.
++func _process(delta: float) -> void:
++	
++	cooldown = clamp(cooldown+1, 0, time_to_shot)
++	if locked_item != null and get_inventory().contents[locked_item] == get_inventory().max_contents:
++		if cooldown == time_to_shot:
++			try_output_items(locked_item)
+diff --git a/Scripts/Objects/Structures/Receiver.gd b/Scripts/Objects/Structures/Receiver.gd
+new file mode 100644
+index 0000000..ada09a8
+--- /dev/null
++++ b/Scripts/Objects/Structures/Receiver.gd
+@@ -0,0 +1,2 @@
++extends Pipe
++class_name Receiver
+diff --git a/Scripts/Objects/main.gd b/Scripts/Objects/main.gd
+index e74d165..0337693 100644
+--- a/Scripts/Objects/main.gd
++++ b/Scripts/Objects/main.gd
+@@ -2,7 +2,8 @@ extends Node
+ 
+ @export var planet: VirtualPlanet
+ 
+-var structure_construction: Array = ["res://Scenes/Structures/drill.tscn", "res://Scenes/Structures/furnace.tscn", "res://Scenes/Structures/pipe.tscn"]
++var structure_construction: Array = ["res://Scenes/Structures/drill.tscn", "res://Scenes/Structures/furnace.tscn", "res://Scenes/Structures/pipe.tscn",
++"res://Scenes/Structures/catapult.tscn", "res://Scenes/Structures/receiver.tscn"]
+ var structure_selected: PackedScene
+ 
+ signal get_config(structure: Structure)
+@@ -121,6 +122,9 @@ func try_output(struct: Structure):
+ 		if offset_range > struct.max_output_range:
+ 			return
+ 		
++		if !struct.check_offset(get_tile_from_mouse()):
++			return
++		
+ 		if struct.max_outputs == 2:
+ 			
+ 			struct.output_offset.resize(output_index+1)
+@@ -137,6 +141,7 @@ func try_output(struct: Structure):
+ 			
+ 
+ func click():
++	print(last_structure)
+ 	if Input.is_action_pressed("Left_Click"):
+ 		if selected_mode == "BUILD_MODE":
+ 			
+@@ -154,7 +159,7 @@ func click():
+ 				try_output(structure_config)
+ 	if Input.is_action_just_released("Left_Click"):
+ 		if selected_mode == "BUILD_MODE":
+-			
++			print("ANULADO!")
+ 			last_structure = null
+ 			
+ func change_mode(mode: String):
+@@ -187,6 +192,9 @@ func get_key(event: InputEvent):
+ 				select_structure(3)
+ 			KEY_4:
+ 				select_structure(4)
++			KEY_5:
++				select_structure(5)
++			
+ 			KEY_Q:
+ 				change_mode(modes[1])
+ 			KEY_ESCAPE:
+
+commit 7d1dec92314e0474681c29ebb33fb2abff3b5dab
+Author: Hotdogomaster <derpadobro@gmail.com>
+Date:   Sun Apr 19 14:46:28 2026 -0300
+
+    Highlight Dynamic Color Improvement
+    
+    Fiz o Highlight mudar de cor conforme alguns status. Uma melhor feedback para o jogador.
+
+diff --git a/Scenes/Main/main.tscn b/Scenes/Main/main.tscn
+index 95c2a56..1a6cb17 100644
+--- a/Scenes/Main/main.tscn
++++ b/Scenes/Main/main.tscn
+@@ -49,8 +49,8 @@ highlight = NodePath("Highlight")
+ top_level = true
+ z_index = 1
+ points = PackedVector2Array(90, 0, 0, 0)
+-width = 5.0
+-default_color = Color(0.275391, 0.45556, 1, 1)
++width = 8.0
++default_color = Color(1, 0.17283, 0.139473, 1)
+ round_precision = 1
+ 
+ [node name="Outer_Crust" type="Polygon2D" parent="Virtual Planet"]
+diff --git a/Scripts/Objects/main.gd b/Scripts/Objects/main.gd
+index 9254156..e74d165 100644
+--- a/Scripts/Objects/main.gd
++++ b/Scripts/Objects/main.gd
+@@ -20,6 +20,8 @@ var output_index: int = 0
+ 
+ var last_structure: Structure = null
+ 
++var hlight_color: Color
++
+ var copied_structure: Dictionary = {
+ 	"name" = "",
+ 	"outputs" = []
+@@ -29,13 +31,7 @@ func _ready() -> void:
+ 	structure_construction.push_front(null)
+ 
+ func _process(delta: float) -> void:
+-	if get_tile_from_mouse().y != 5:
+-		getted_tile.emit(planet.planet.get_tile(get_tile_from_mouse())) 
+-		planet.render_highlight(get_tile_from_mouse())
+-		planet.highlight.visible = true
+-	else:
+-		getted_tile.emit(null)
+-		planet.highlight.visible = false
++	set_highlight()
+ 	pass
+ 
+ func get_tile_from_mouse() -> Vector2i:
+@@ -76,23 +72,26 @@ func try_get_config():
+ 	else:
+ 		get_config.emit(null)
+ 
++func can_construct():
++	if structure_selected == null:
++		
++		return false
++	if planet.planet.get_structure(get_tile_from_mouse()) != null:
++		last_structure = planet.planet.get_structure(get_tile_from_mouse())
++		return false
++	
++	return true
++
+ func try_construct():
+ 	if get_tile_from_mouse().y != 5:
+ 			
+-			if structure_selected == null:
+-				return
+-			
+ 			if last_structure != null:
+ 				try_output(last_structure)
+ 				output_index = 0
+ 			
+-			if planet.planet.get_structure(get_tile_from_mouse()) != null:
+-				last_structure = planet.planet.get_structure(get_tile_from_mouse())
++			if !can_construct():
+ 				return
+ 			
+-			
+-			
+-			
+ 			planet.planet.add_structure(structure_selected, get_tile_from_mouse())
+ 			last_structure = planet.planet.get_structure(get_tile_from_mouse())
+ 			
+@@ -231,3 +230,18 @@ func _on_get_config(structure:Structure) -> void:
+ 	structure_config = structure
+ 	output_index = 0
+ 	
++func set_highlight():
++	if get_tile_from_mouse().y != 5:
++		if selected_mode == "BUILD_MODE":
++			if can_construct() and !Input.is_action_pressed("Right_Click"):
++				hlight_color = Color(116, 222, 31, 255)
++			else:
++				hlight_color = Color(255, 44, 36, 255)
++		else:
++			hlight_color = Color(70.0, 116.0, 255.0, 255.0)
++		getted_tile.emit(planet.planet.get_tile(get_tile_from_mouse())) 
++		planet.render_highlight(get_tile_from_mouse(), hlight_color)
++		planet.highlight.visible = true
++	else:
++		getted_tile.emit(null)
++		planet.highlight.visible = false
+diff --git a/Scripts/Objects/virtual_planet.gd b/Scripts/Objects/virtual_planet.gd
+index d44a955..921e379 100644
+--- a/Scripts/Objects/virtual_planet.gd
++++ b/Scripts/Objects/virtual_planet.gd
+@@ -83,11 +83,12 @@ func render_structure(pos: Vector2i):
+ 	sprite.position.x = Lface_size / 2
+ 	add_child(structure)
+ 	
+-func render_highlight(pos: Vector2i):
++func render_highlight(pos: Vector2i, color: Color = Color(70.0, 116.0, 255.0, 255.0)):
+ 	var angle_division = deg_to_rad(360.0 / planet.planet_size)
+ 	var radius = (planet.planet_size * face_size)/ TAU
+ 	var outer_size = face_size * radius / (radius+100)
++	highlight.default_color = color/255.0
+ 	highlight.points[0].x = ((face_size -outer_size ) * pos.y) + face_size
+-	highlight.position.x = (radius + (pos.y * 100)) * cos((angle_division * pos.x) + rotation) + position.x
+-	highlight.position.y = (radius + (pos.y * 100)) * sin((angle_division * pos.x) + rotation) + position.y
++	highlight.position.x = (4 +radius + (pos.y * 100)) * cos((angle_division * pos.x) + rotation) + position.x
++	highlight.position.y = (4+ radius + (pos.y * 100)) * sin((angle_division * pos.x) + rotation) + position.y
+ 	highlight.rotation = (angle_division * (pos.x + 0.5) + PI / 2) + rotation

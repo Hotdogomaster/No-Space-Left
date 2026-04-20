@@ -22,6 +22,7 @@ var output_index: int = 0
 var last_structure: Structure = null
 
 var hlight_color: Color
+@export var cursor_hl: Line2D
 
 var copied_structure: Dictionary = {
 	"name" = "",
@@ -149,6 +150,8 @@ func click():
 	if Input.is_action_pressed("Right_Click"):
 		if selected_mode == "BUILD_MODE":
 			try_removing()
+		if selected_mode == "CONFIG_MODE":
+			selected_mode = "NORMAL"
 	if Input.is_action_just_pressed("Left_Click"):
 		match selected_mode:
 			"NORMAL":

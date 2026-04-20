@@ -1,12 +1,11 @@
 extends Structure
 class_name Catapult
 
-var cooldown: int
+var cooldown: int = 0
 
 var locked_item: Item = null
 
 @export var time_to_shot: int = 3
-# Called when the node enters the scene tree for the first time.
 
 func check_offset(pos: Vector2i):
 	if planet.get_structure(pos) == null:
@@ -29,7 +28,11 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	
+	if output_offset.is_empty():
+		return
 	cooldown = clamp(cooldown+1, 0, time_to_shot)
 	if locked_item != null and get_inventory().contents[locked_item] == get_inventory().max_contents:
 		if cooldown == time_to_shot:
+			cooldown = 0
 			try_output_items(locked_item)
+	

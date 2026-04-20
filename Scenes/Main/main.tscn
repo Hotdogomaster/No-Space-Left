@@ -27,9 +27,10 @@ font_size = 12
 [sub_resource type="LabelSettings" id="LabelSettings_g18vh"]
 font_size = 12
 
-[node name="Main" type="Node" node_paths=PackedStringArray("planet")]
+[node name="Main" type="Node" node_paths=PackedStringArray("planet", "cursor_hl")]
 script = ExtResource("1_7fvoc")
 planet = NodePath("Virtual Planet")
+cursor_hl = NodePath("Virtual Planet/CursorHighlight")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 offset_left = -1731.0
@@ -43,9 +44,9 @@ position = Vector2(576, 650)
 planet = SubResource("Resource_nwcqo")
 inner_crust = NodePath("Inner_Crust")
 outer_crust = NodePath("Outer_Crust")
-highlight = NodePath("Highlight")
+highlight = NodePath("CursorHighlight")
 
-[node name="Highlight" type="Line2D" parent="Virtual Planet"]
+[node name="CursorHighlight" type="Line2D" parent="Virtual Planet"]
 top_level = true
 z_index = 1
 points = PackedVector2Array(90, 0, 0, 0)

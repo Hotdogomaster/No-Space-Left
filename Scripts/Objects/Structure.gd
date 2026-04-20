@@ -22,7 +22,7 @@ func get_output_position(index: int = 0) -> Vector2i:
 func _get_ticked():
 	pass
 	
-func push_item(offset: Vector2i, item:Item):
+func push_item(offset: Vector2i, item:Item, remove: bool = true, amount: int = 0):
 	var target_pos = struct_position + offset
 	
 	if target_pos.y > 1 or target_pos.y < 0:
@@ -56,9 +56,13 @@ func push_item(offset: Vector2i, item:Item):
 		target_inventory.contents[item] = 0
 	
 	var new_amount = calculate_amount(target_inventory, item)
-	target_inventory.add_item(item, new_amount)
+	if amount == 0:
+		target_inventory.add_item(item, new_amount)
+	else:
+		target_inventory.add_item(item, amount)
 	
-	get_inventory().remove_item(item, new_amount)
+	if remove:
+		get_inventory().remove_item(item, new_amount)
 	return true
 
 func get_inventory() -> Inventory:
@@ -89,9 +93,9 @@ func recalculate_priority():
 		return priority.get(a, 999) < priority.get(b, 999)
 	)
 	
-func try_output_items(item: Item):
+func try_output_items(item: Item, remove: bool = true, amount: int = 0):
 	for output in output_offset:
-			push_item(output, item)
+			push_item(output, item, remove, amount)
 
 func check_offset(pos: Vector2i):
 	return true
