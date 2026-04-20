@@ -11,11 +11,13 @@ config_version=5
 [application]
 
 config/name="No Space Left Refactor"
+run/main_scene="res://Scenes/Main Scenes/main_game.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 
 [autoload]
 
 SignalManager="*res://Scripts/Singletons/Signal_Manager.gd"
+Utils="*res://Scripts/Singletons/Utils.gd"
 
 [file_customization]
 

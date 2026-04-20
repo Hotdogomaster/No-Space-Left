@@ -5,6 +5,8 @@ var tile_grid: Array[Array] #Stores Structures
 
 @export var size: int = 35 #the 'X' size of the grid
 
+#tile class
+
 class tile:
 	var structure: Structure = null
 	var can_construct: bool = true
